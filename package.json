@@ -1,0 +1,25 @@
+{
+  "name": "61256",
+  "version": "0.6.5",
+  "description": "Just me messing with an ancient book... :metal:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/human-inhabitant/61256.git"
+  },
+  "keywords": [
+    "Mongo",
+    "Express",
+    "Angular",
+    "Node"
+  ],
+  "author": "human-inhabitant",
+  "license": "copyleft-next-0.3.1",
+  "bugs": {
+    "url": "https://github.com/human-inhabitant/61256/issues"
+  },
+  "homepage": "https://github.com/human-inhabitant/61256#readme"
+}
