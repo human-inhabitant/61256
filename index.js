@@ -5,6 +5,8 @@ const employeeService = require( './lib/employees' );
 const responder = require( './lib/responseGenerator' );
 const staticFile = responder.staticFile( '/public' );
 
+require( './lib/connection' );
+
 http
   .createServer( function( req, res ) {
     // A parsed url to work with in case there are parameters

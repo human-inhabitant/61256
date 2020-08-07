@@ -4,7 +4,7 @@
   "description": "Just me messing with an ancient book... :metal:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "populate": "node ./bin/populate-db"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,10 @@
   },
   "homepage": "https://github.com/human-inhabitant/61256#readme",
   "dependencies": {
+    "async": "^3.2.0",
     "colors": "^1.4.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.9.27",
+    "mongoose-post-find": "0.0.2"
   }
 }
