@@ -1,18 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" class="no-js">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <title></title>
+    <title>HR App</title>
   </head>
-  <body>
-    <h1>MEAN :: HR Application</h1>
-    <ng-view></ng-view>
 
-    <script src="vendor/angular-1.2.32/angular.min.js"></script>
-    <script src="vendor/angular-1.2.32/angular-resource.min.js"></script>
-    <script src="vendor/angular-1.2.32/angular-route.min.js"></script>
+  <body class="container">
+    <div class="content-box">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#/">Home</a></li>
+        <li><a href="#/employees">Employees</a></li>
+        <li><a href="#/teams">Teams</a></li>
+      </ul>
+      <div ng-view></div>
+    </div>
+
+
+    <script src="https://code.angularjs.org/1.2.32/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.32/angular-resource.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.32/angular-route.min.js"></script>
     <script src="js/webapp.js"></script>
   </body>
 </html>
