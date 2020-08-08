@@ -1,0 +1,49 @@
+'use strict';
+
+angular.module( 'app', ['ngResource', 'ngRoute'] );
+
+angular
+  .module('app' )
+  .config([ '$routeProvider', function( $routeProvider ) {
+    $routeProvider
+      .when( '/view', {
+        templateUrl: 'view.html',
+        controller: 'view'
+      })
+      .when( '/edit/:employeeId', {
+        templateUrl: 'edit.html',
+        controller: 'edit'
+      })
+      .otherwise({
+        redirectTo: '/'
+      })
+    ;
+  }])
+  .factory( 'EmployeeService', [ '$resource', function( $resource ) {
+    return $resource( '/employees/:employeeId', {}, {
+      get: {
+        isArray: false
+      },
+      list: {
+        isArray: true
+      }
+    });
+  }])
+  .controller( 'view', [ '$scope', 'EmployeeService', function( $scope, EmployeeService ) {
+    $scope.employees = [];
+    $scope.firstName = $scope.lastName = '';
+
+    EmployeeService.list( function( data ) {
+      $scope.employees = data;
+    });
+  }])
+  .controller( 'edit', [ '$scope', 'EmployeeService', '$routeParams', function( $scope, EmployeeService, $routeParams ) {
+    $scope.employee = {};
+    EmployeeService.get({
+        employeeId: $routeParams.employeeId
+      }, function( data ) {
+        $scope.employee = data;
+      })
+    ;
+  }])
+;

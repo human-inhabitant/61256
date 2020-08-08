@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name Given</th>
+      <th>Name Family</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="p in employees">
+      <td>{{p.id}}</td>
+      <td>{{p.name.first}}</td>
+      <td>{{p.name.last}}</td>
+      <td><a href="#/edit/{{p.id}}">Edit &gt;&gt;&gt;</a></td>
+    </tr>
+  </tbody>
+</table>

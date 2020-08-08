@@ -1,55 +1,50 @@
 'use strict';
 
-const http = require( 'http' );
-const employeeService = require( './lib/employees' );
-const responder = require( './lib/responseGenerator' );
-const staticFile = responder.staticFile( '/public' );
+const express = require( 'express' );
+const path = require( 'path' );
+const favicon = require( 'serve-favicon' );
+const logger = require( 'morgan' );
+const cookieParser = require( 'cookie-parser' );
+const bodyParser = require( 'body-parser' );
 
 require( './lib/connection' );
+const employees = require( './routes/employees' );
+const teams = require( './routes/teams' );
 
-http
-  .createServer( function( req, res ) {
-    // A parsed url to work with in case there are parameters
-    let _url;
+const app = express();
 
-    // In case the client uses lower case for methods.
-    req.method = req.method.toUpperCase();
-    console.info( req.method, req.url );
+app.use( favicon( __dirname + '/public/favicon.ico' ) );
+app.use( logger( 'dev' ) );
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+app.use( cookieParser() );
+app.use( express.static( path.join( __dirname, 'public' ) ) );
 
-    if ( req.method !== 'GET' ) {
-      res.writeHead( 501, { 'Content-Type': 'text/plain' } );
-      return res.end( `${req.method} is not implemented by this server.` );
-    }
+app.use( employees );
+app.use( teams );
 
-    if ( _url = /^\/employees$/i.exec( req.url ) ) {
-      employeeService
-        .getEmployees( function( error, data ) {
-          if ( error ) {
-            return responder.send500( error, res );
-          }
-          return responder.sendJson( data, res );
-        })
-      ;
-      //return res.end( 'Employee list...' );
-    } else if ( _url = /^\/employees\/(\d+)$/i.exec( req.url ) ) {
-      employeeService
-        .getEmployee( _url[1], function( error, data ) {
-        if ( error ) {
-          return responder.send500( error, res );
-        }
-        if ( !data ) {
-          return responder.send404( res );
-        }
-        return responder.sendJson( data, res );
-      });
-      //return res.end( 'A single employee...' );
-    } else {
-      // Try to send the static file
-      res.writeHead( 200 );
-      staticFile( req.url, res );
-      //res.end( 'Static file maybe...' );
-    }
+app
+  .use( function( req, res, next ) {
+    const err = new Error( 'Not Found' );
+    err.status = 404;
+    next( err );
   })
-  .listen( 1337, '192.168.2.101' )
 ;
-console.info( 'Server running at http://192.168.2.101:1337/' );
+
+if ( app.get( 'env' ) === 'development' ) {
+  app
+    .use( function( err, req, res, next ) {
+      res.status( err.status || 500 );
+      res.send({
+        message: err.message,
+        error: err
+      });
+    })
+  ;
+}
+
+app.use( function( err, req, res, next ) {
+  res.status( err.status || 500 );
+});
+
+module.exports = app;

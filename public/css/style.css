@@ -1,0 +1,23 @@
+html, body {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: left;
+  margin: 1rem 0;
+  width: 100%;
+}
+table tbody tr:nth-of-type(odd) {
+  background: #f7f8f9;
+}
+table th,
+table td {
+  border-bottom: 0.05rem solid #dadee4;
+  padding: 0.6rem 0.4rem;
+}
+table th {
+  border-bottom-width: 0.1rem;
+}
